@@ -1,2 +1,3 @@
-Code for https://www.missoula.community
-A simple global communication hub for our weekly My Grandmother's Hands practice group.
+# https://www.missoula.community
+
+A simple communication hub for our weekly practice group of _My Grandmother's Hands_ by Resmaa Menakem.
