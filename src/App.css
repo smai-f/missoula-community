@@ -2,6 +2,13 @@
   text-align: center;
 }
 
+.fc-event-time,
+.fc-event-title {
+  padding: 0 1px;
+  white-space: normal;
+  cursor: default;
+}
+
 .App-logo {
   height: 40vmin;
   pointer-events: none;
