@@ -4,7 +4,9 @@ import dayGridPlugin from "@fullcalendar/daygrid";
 import interactionPlugin from "@fullcalendar/interaction";
 import { EVENTS } from "../data/events";
 
-const Calendar = () => {
+type CalendarComponent = React.FC;
+
+const Calendar: CalendarComponent = () => {
   return (
     <FullCalendar
       plugins={[interactionPlugin, dayGridPlugin]}
