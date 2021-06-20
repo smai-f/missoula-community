@@ -1,10 +1,4 @@
-import {
-  createSomaticPractices,
-  createEvent,
-  mgh,
-  sixPm,
-  MGHEvent,
-} from "./utils";
+import { createSomaticPractices, createEvent, mgh, sixPm } from "./utils";
 
 /* UPDATE HERE */
 const somaticPracticeDates: string[] = [
@@ -16,7 +10,7 @@ const somaticPracticeDates: string[] = [
   "6/16/2021",
   "6/30/2021",
 ];
-export const EVENTS: MGHEvent[] = [
+export const EVENTS = [
   ...createSomaticPractices(somaticPracticeDates),
   createEvent(`${mgh} - intro`, "2/8/2021", sixPm),
   createEvent(`${mgh} - ch. 1-4`, "2/15/2021", sixPm),
