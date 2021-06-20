@@ -16,11 +16,7 @@ const createDate = (date) => {
 
 const createDateTime = (date, time) => {
   let start = createDate(date);
-  console.log("=========");
-  console.log(start);
   start += time ? "T" + time + ":00" : "";
-  console.log(start);
-
   return start;
 };
 
