@@ -1,18 +1,20 @@
 import { useState } from "react";
 import { Redirect } from "react-router-dom";
 
-export interface LoginProps {}
+export interface SignupProps {}
 
-const Login: React.FunctionComponent<LoginProps> = () => {
+const Signup: React.FunctionComponent<SignupProps> = () => {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
-  const [data, setData] = useState({ password: "" });
+  const [name, setName] = useState("");
   const [statusMessage, setStatusMessage] = useState<string>("");
-
-  const [toSignUp, setToSignUp] = useState(false);
+  const [toLogIn, setToLogIn] = useState(false);
 
   const handleEmailChange = (event: React.ChangeEvent<HTMLInputElement>) => {
     setEmail(event.target.value);
+  };
+  const handleNameChange = (event: React.ChangeEvent<HTMLInputElement>) => {
+    setName(event.target.value);
   };
   const handlePasswordChange = (event: React.ChangeEvent<HTMLInputElement>) => {
     setPassword(event.target.value);
@@ -23,25 +25,33 @@ const Login: React.FunctionComponent<LoginProps> = () => {
     // const requestOptions = {
     //   method: "POST",
     //   headers: { "Content-Type": "application/json" },
-    //   body: JSON.stringify({ email: email, password: password }),
+    //   body: JSON.stringify({ email: email, password: password, name: name }),
     // };
     // const response = await fetch(
-    //   "http://localhost:8080/api/auth/signin",
+    //   "http://localhost:8080/api/auth/signup",
     //   requestOptions
     // );
     // const data = await response.json();
+    // setStatusMessage(data.message);
   };
+
+  if (toLogIn) {
+    return <Redirect to="/login" />;
+  }
 
   const formElementClasses = "block mb-4";
 
-  if (toSignUp) {
-    return <Redirect to="/signup" />;
-  }
-
   return (
     <div className="mt-8 mx-auto md:my-auto">
-      <h3 className="text-3xl font-bold mb-4">Log In</h3>
+      <h3 className="text-3xl font-bold mb-4">Sign Up</h3>
       <form onSubmit={handleSubmit}>
+        <label className="block">Name:</label>
+        <input
+          className={`${formElementClasses}`}
+          name="name"
+          type="text"
+          onChange={handleNameChange}
+        ></input>
         <label className="block">Email address:</label>
         <input
           className={`${formElementClasses}`}
@@ -57,7 +67,7 @@ const Login: React.FunctionComponent<LoginProps> = () => {
           onChange={handlePasswordChange}
         ></input>
         <input
-          className={`bg-red text-white rounded p-3 ${formElementClasses} cursor-pointer`}
+          className={`bg-red text-white rounded p-3 cursor-pointer ${formElementClasses}`}
           type="submit"
           value="Submit"
         ></input>
@@ -77,12 +87,12 @@ const Login: React.FunctionComponent<LoginProps> = () => {
       </div>
       <div>
         <p>
-          New user?{" "}
+          Already registered?{" "}
           <span
             className="underline cursor-pointer"
-            onClick={(event) => setToSignUp(true)}
+            onClick={(event) => setToLogIn(true)}
           >
-            Sign up here.
+            Log in here.
           </span>
         </p>
       </div>
@@ -90,4 +100,4 @@ const Login: React.FunctionComponent<LoginProps> = () => {
   );
 };
 
-export default Login;
+export default Signup;

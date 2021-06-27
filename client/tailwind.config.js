@@ -8,17 +8,15 @@ module.exports = {
   ],
   darkMode: false, // or 'media' or 'class'
   theme: {
-    colors: {
-      black: colors.black,
-      white: colors.white,
-      red: { DEFAULT: "#7d0202" },
-      blue: {
-        light: "#02c0fd",
-        DEFAULT: "#020398",
-        dark: "#061270",
-      },
-    },
     extend: {
+      colors: {
+        red: { DEFAULT: "#7d0202" },
+        blue: {
+          light: "#02c0fd",
+          DEFAULT: "#020398",
+          dark: "#061270",
+        },
+      },
       fontFamily: {
         sans: ["Fira Sans"],
       },
@@ -27,5 +25,5 @@ module.exports = {
   variants: {
     extend: {},
   },
-  plugins: [],
+  plugins: [require("@tailwindcss/forms")],
 };

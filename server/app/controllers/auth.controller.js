@@ -7,63 +7,38 @@ var bcrypt = require("bcryptjs");
 
 exports.signup = (req, res) => {
   const user = new User({
-    username: req.body.username,
+    name: req.body.name,
     email: req.body.email,
     password: bcrypt.hashSync(req.body.password, 8),
   });
 
   user.save((err, user) => {
     if (err) {
-      res.status(500).send({ message: err });
+      res.status(500).json({ message: "Error: " + err });
       return;
     }
 
-    if (req.body.roles) {
-      Role.find(
-        {
-          name: { $in: req.body.roles },
-        },
-        (err, roles) => {
-          if (err) {
-            res.status(500).send({ message: err });
-            return;
-          }
-
-          user.roles = roles.map((role) => role._id);
-          user.save((err) => {
-            if (err) {
-              res.status(500).send({ message: err });
-              return;
-            }
-
-            res.send({ message: "User was registered successfully!" });
-          });
-        }
-      );
-    } else {
-      Role.findOne({ name: "user" }, (err, role) => {
+    Role.findOne({ name: "userUnapproved" }, (err, role) => {
+      if (err) {
+        res.status(500).json({ message: "Error: " + err });
+        return;
+      }
+      user.roles = [role._id];
+      user.save((err) => {
         if (err) {
-          res.status(500).send({ message: err });
+          res.status(500).json({ message: "Error: " + err });
           return;
         }
 
-        user.roles = [role._id];
-        user.save((err) => {
-          if (err) {
-            res.status(500).send({ message: err });
-            return;
-          }
-
-          res.send({ message: "User was registered successfully!" });
-        });
+        res.json({ message: "Success! Your account has been registered." });
       });
-    }
+    });
   });
 };
 
 exports.signin = (req, res) => {
   User.findOne({
-    username: req.body.username,
+    name: req.body.email,
   })
     .populate("roles", "-__v")
     .exec((err, user) => {
@@ -99,7 +74,6 @@ exports.signin = (req, res) => {
       }
       res.status(200).send({
         id: user._id,
-        username: user.username,
         email: user.email,
         roles: authorities,
         accessToken: token,
